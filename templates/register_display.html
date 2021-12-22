@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <style>
+        body {
+            background: rgba(6, 8, 14, 1.0);
+            background: -webkit-linear-gradient(top left, rgba(6, 8, 14, 1.0), rgba(18, 20, 49, 1.0));
+            background: -moz-linear-gradient(top left, rgba(6, 8, 14, 1.0), rgba(18, 20, 49, 1.0));
+            background: linear-gradient(to bottom right, rgba(6, 8, 14, 1.0), rgba(18, 20, 49, 1.0));
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: "Open Sans", sans-serif;
+            color: #333333;
+        }
+
+        .box-form {
+            margin: 0 auto;
+            width: 80%;
+            background: #FFFFFF;
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex: 1 1 100%;
+            align-items: stretch;
+            justify-content: space-between;
+        }
+
+        @media (max-width: 980px) {
+            .box-form {
+                flex-flow: wrap;
+                text-align: center;
+                align-content: center;
+                align-items: center;
+            }
+        }
+
+        .box-form div {
+            height: auto;
+        }
+
+        .box-form .left {
+            color: #FFFFFF;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-image: url("https://community.arm.com/cfs-file/__key/communityserver-blogs-components-weblogfiles/00-00-00-19-98/cybersecurity-post_2D00_1600x900.jpg");
+            overflow: hidden;
+
+        }
+
+        .box-form .left .overlay {
+            padding: 30px;
+            width: 100%;
+            height: 100%;
+            background: rgba(24, 29, 41, 0.9);
+            background: -webkit-linear-gradient(top left, rgba(24, 29, 41, 0.9), rgba(11, 12, 45, 0.9));
+            background: -moz-linear-gradient(top left, rgba(24, 29, 41, 0.9), rgba(11, 12, 45, 0.9));
+            background: linear-gradient(to bottom right, rgba(24, 29, 41, 0.9), rgba(11, 12, 45, 0.9));
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        .box-form .left .overlay h1 {
+            font-size: 4vmax;
+            line-height: 1;
+            font-weight: 900;
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+
+        .box-form .left .overlay span p {
+            margin-top: 30px;
+            font-weight: 900;
+        }
+
+        .box-form .left .overlay span a {
+            background: #3b5998;
+            color: #FFFFFF;
+            margin-top: 10px;
+            padding: 14px 20px;
+            border-radius: 100px;
+            display: inline-block;
+            box-shadow: 0 3px 6px 1px #042d4657;
+        }
+
+        .box-form .left .overlay span a:last-child {
+            background: #1dcaff;
+            margin-left: 10px;
+        }
+
+        .box-form .right {
+            padding: 40px;
+            overflow: hidden;
+        }
+
+        @media (max-width: 980px) {
+            .box-form .right {
+                width: 100%;
+            }
+        }
+
+        .box-form .right h5 {
+            font-size: 4vmax;
+            line-height: 0;
+            text-align: center;
+
+        }
+
+        .box-form .right p {
+            font-size: 14px;
+            color: #B0B3B9;
+        }
+
+        .box-form .right .inputs {
+            overflow: hidden;
+        }
+
+        .box-form .right input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 25px;
+            font-size: 16px;
+            border: none;
+            outline: none;
+            border-bottom: 2px solid #B0B3B9;
+        }
+
+        .box-form .right .remember-me--forget-password {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .box-form .right .remember-me--forget-password input {
+            margin: 0;
+            margin-right: 7px;
+            width: auto;
+        }
+
+        .box-form .right button {
+            float: right;
+            color: #fff;
+            font-size: 16px;
+            padding: 12px 35px;
+            border-radius: 50px;
+            display: inline-block;
+            border: 0;
+            outline: 0;
+            box-shadow: 0px 4px 20px 0px rgba(24, 29, 41, 0.9);
+            background: rgba(24, 29, 41, 0.9);
+            background: -webkit-linear-gradient(top left, rgba(24, 29, 41, 0.9), rgba(11, 12, 45, 0.9));
+            background: -moz-linear-gradient(top left, rgba(24, 29, 41, 0.9), rgba(11, 12, 45, 0.9));
+            background: linear-gradient(to bottom right, rgba(24, 29, 41, 0.9), rgba(11, 12, 45, 0.9));
+        }
+
+        label {
+            display: block;
+            position: relative;
+            margin-left: 30px;
+        }
+
+        label::before {
+            content: ' \f00c';
+            position: absolute;
+            font-family: FontAwesome;
+            background: transparent;
+            border: 3px solid #70F570;
+            border-radius: 4px;
+            color: transparent;
+            left: -30px;
+            transition: all 0.2s linear;
+        }
+
+        label:hover::before {
+            font-family: FontAwesome;
+            content: ' \f00c';
+            color: #fff;
+            cursor: pointer;
+            background: #70F570;
+        }
+
+        label:hover::before .text-checkbox {
+            background: #70F570;
+        }
+
+        label span.text-checkbox {
+            display: inline-block;
+            height: auto;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s linear;
+        }
+
+        label input[type="checkbox"] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- partial:index.partial.html -->
+    <div class="box-form">
+        <div class="left">
+            <div class="overlay">
+                <h1>WELCOME TO OUR WEBSITE</h1>
+                <p>Visual Cryptography Website</p>
+                <span>
+                    <p>Contact us</p>
+                    <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                </span>
+            </div>
+        </div>
+
+
+        <div class="right">
+            <h5>CHÚC MỪNG</h5>
+            <div class="container">
+                <div class="row justify-content-center mt-5 bg-white">
+                    <div class="col-10">
+                        <div class="alert alert-success" role="alert">
+                            <h4 class="alert-heading">Đăng ký thành công!</h4>
+                            <p>Hệ thống vừa khởi tạo một bức ảnh captcha gốc và một ảnh bảo mật của bạn. </p>
+                            <p>Lưu ý bạn sẽ cần 2 bức ảnh này việc đăng nhập về sau !</p>
+                            <p class="mb-0">Nếu bạn đã hiểu, thì hãy nhấn vào nút "Tải xuống" để tải ảnh về máy.</p>
+                        </div>
+                        <hr>
+                    </div>
+                    <div class="col-10">
+                        <div class="">
+                            <img style="width: 400px;" src="../static/uploads/captcha.png">
+                            <hr>
+                            <img style="width: 400px;" src="../static/uploads/_A.png">
+                            <hr>
+                        </div>
+                        <br>
+                        <div class="text-right">
+                            <a href="../static/zipfile/shares.zip" download>
+                                <button class="btn btn-success pl-3 pr-3 mt-2">Tải xuống</button>
+                            </a>
+                            <button style="margin-right: 20px;"
+                                class="ml-3 btn btn-success pl-3 pr-3 mt-2"><a>Login</a></button>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <!-- partial -->
+
+</body>
+
+</html>

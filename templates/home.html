@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>RECOGNIZE TOOLS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #111111;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            border-radius: 0px 0px 8px 8px;
+            z-index: 1000;
+        }
+
+        .navbar-brand {
+            font-size: 25px;
+            font-family: sans-serif;
+            font-weight: 500;
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: "";
+            display: block;
+            width: 0;
+            height: 2px;
+            background: rgb(214, 211, 211);
+            transition: linear 0.15s;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        ::placeholder {
+            color: rgba(255, 255, 255, 0.678) !important;
+            font-size: 13px;
+        }
+
+
+        input.form-control {
+            font-size: 13px;
+            border-radius: 0;
+            background-color: transparent;
+            color: #fff;
+            width: 160px !important;
+        }
+
+        input.form-control:focus {
+            background-color: transparent;
+            color: #fff;
+            box-shadow: none;
+        }
+
+        #search-btn {
+            background-color: transparent;
+            color: rgba(255, 255, 255, .5);
+        }
+
+        #search-btn:hover {
+            color: rgba(255, 255, 255, 0.842)
+        }
+
+        .search-wrapper {
+            border-bottom: 1px solid rgb(255, 255, 255) !important;
+        }
+
+        .btn:focus,
+        .btn:active {
+            box-shadow: none !important;
+        }
+
+        @media (max-width: 979px) {
+            .navbar {
+                border-radius: 0;
+            }
+
+            .nav-link {
+                padding-left: 0 !important;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                display: inline-block;
+            }
+
+            .navbar-brand {
+                margin: auto;
+                text-align: center;
+                display: block;
+            }
+
+            .search-wrapper {
+                margin-left: 0 !important;
+                display: inline-block;
+            }
+
+            #title,
+            #content {
+                text-align: center;
+            }
+        }
+
+        .row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #title {
+            text-transform: uppercase;
+            font-family: 'Bebas Neue', cursive;
+            font-size: 55px;
+            line-height: 70px;
+
+        }
+
+        #content {
+            font-size: 16px;
+            line-height: 35px;
+            text-align: justify;
+            text-indent: 30px;
+            border-top: 1px solid rgba(128, 128, 128, 0.281);
+            border-bottom: 1px solid rgba(128, 128, 128, 0.281);
+        }
+
+        .card {
+            width: 80%;
+            height: 220px;
+            border-radius: 10px;
+            padding: 20px 25px;
+            margin: 20px 15px;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            background-position: center;
+            align-items: center;
+            transition: linear 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        #card-1 {
+            background-color: #181B29;
+
+        }
+
+        #card-2 {
+            background-color: #181B29;
+        }
+
+        .card h1 {
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.87);
+            font-size: 40px;
+            text-align: center;
+            font-weight: bold;
+            border-bottom: 3px solid rgb(255, 255, 255);
+            padding-bottom: 3px;
+            width: 100%;
+        }
+
+        .card button {
+            background-color: #16202F;
+            border-color: rgba(255, 255, 255, 0.5);
+            ;
+            box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-info:hover {
+            background-color: #2C3143;
+            border-color: #fff;
+
+        }
+
+        .category {
+            margin: 60px 0 5px 0;
+            font-size: 70px;
+            font-weight: bold;
+            font-family: 'Bebas Neue', cursive;
+            letter-spacing: 3px;
+            word-spacing: 5px;
+            text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .card-detail-row {
+            align-items: flex-start;
+        }
+
+        .card-detail-row .col-12 h2 {
+            font-size: 50px;
+            color: #2a343a;
+            font-family: 'Bebas Neue', cursive;
+
+        }
+
+        .image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 400px;
+            border: 1.5px dashed grey;
+            border-radius: 9px;
+        }
+
+        .image img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .image div {
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .upload-icon {
+            font-size: 80px;
+            color: #385f77;
+        }
+
+        .upload-btn {
+            width: 100%;
+            height: 50px;
+            background-color: #385f77;
+            color: azure;
+            border-radius: 20px;
+            font-size: 17px;
+            text-transform: uppercase;
+        }
+
+        .upload-btn:hover {
+            color: #385f77;
+            background-color: transparent;
+            border: 1px solid #385f77;
+        }
+
+        .info-card {
+            width: 90%;
+            height: auto;
+            box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-card:hover {
+            background-color: rgba(224, 224, 224, 0.603);
+        }
+
+        .card-img-top {
+            width: 200px;
+            height: 200px;
+            border-radius: 100%;
+            overflow: hidden;
+        }
+
+        .card-title {
+            font-size: 25px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .card-text {
+            letter-spacing: 1.5px;
+        }
+
+        .media-links {
+            display: flex;
+            justify-content: center;
+            border-top: 1px solid rgba(128, 128, 128, 0.301);
+            padding-top: 10px;
+        }
+
+        .media-links a {
+            padding: 0 15px;
+            color: #7a858b;
+            font-size: 20px;
+        }
+
+        .media-links a:hover {
+            color: #0191eb;
+        }
+
+        #footer-wrapper {
+            height: auto;
+            background-color: #181B29;
+        }
+
+        footer {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .footer-row {
+            align-items: flex-start;
+            padding: 0 16px;
+            border-bottom: 1px solid rgb(214, 214, 214);
+        }
+
+
+
+        #contact-info-title {
+            font-size: 20px;
+            border-bottom: 1px solid rgb(212, 212, 212);
+            display: inline-block;
+        }
+
+        #company-info-title {
+            font-size: 25px;
+            border-bottom: 0;
+        }
+
+        .row-contact-content {
+            align-items: flex-start;
+            justify-content: center;
+            text-align: justify;
+        }
+
+        .row-contact-content p {
+            text-align: justify;
+            margin-left: 4px;
+        }
+
+        .row-contact-content .col-1 {
+            text-align: center;
+        }
+
+        .row-contact-content .col-1 i {
+            width: 100%;
+            padding: 0;
+            vertical-align: middle;
+        }
+
+        .media-links-footer a {
+            color: white;
+            font-size: 25px;
+            padding: 0 30px;
+        }
+
+        .media-links-footer a:hover {
+            color: #afe0ff;
+        }
+
+        #copyright {
+            text-align: center;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .row-contact-content p {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="">
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #161625;">
+            <a class="navbar-brand" style="color: rgba(255,255,255,0.87);" href="#">RECOGNIZE TOOLS</a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link pl-5" href="#">Home<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link pl-5" href="#">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link pl-5" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link pl-5" href="#">Contact</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <div class="search-wrapper ml-5">
+                            <form class="form-inline ">
+                                <input class="px-0 border-0 form-control" type="search" placeholder="Search...">
+                                <button id="search-btn" class="btn" type="submit">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <div class="container" style="margin-top:70px">
+        <div class="row">
+            <div class="col-md-12 col-lg-6">
+                <h1 id="title" style="color: rgba(255,255,255,0.80);">Visual Cryptography protects your website from
+                    phishing attack </h1>
+                <p style="color: rgba(255,255,255,0.80);" id="content" class="py-2">With Visual Cryptography, We use the
+                    most advanced technology to protect your personal privacy information
+                </p>
+            </div>
+            <div class="col-md-12 col-lg-6">
+                <div class="row">
+                    <div class="card" id="card-1">
+                        <h1>VC Login</h1>
+                        <button class="btn btn-info mt-3"><a href="/login">Click here to
+                                discover!</a></button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="card" id="card-2">
+                        <h1>VC Register</h1>
+                        <button class="btn btn-info mt-3"><a href="/register">Click here to
+                                discover!</a></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row category" style="color: rgba(255, 255, 255, 0.86);">Our services</div>
+
+        <div class="row card-detail-row">
+            <div class="col-12 mt-3 mb-1">
+                <h2 style="color: rgba(255,255,255,0.6);">VISUAL CRYPTOGRAPHY ENCRYPT</h2>
+            </div>
+
+            <div class="col-md-12 col-lg-6">
+                <div class="image">
+                    <img style="display: none;"
+                        src="https://jes.edu.vn/wp-content/uploads/2017/10/h%C3%ACnh-%E1%BA%A3nh.jpg" alt="">
+
+                    <div>
+                        <i class="m-2 upload-icon fas fa-cloud-upload-alt"></i>
+                        <br>Please select a file <br> to begin the process!
+                    </div>
+                </div>
+                <input id="default-btn" type="file" hidden>
+                <button class="my-3 upload-btn btn">Choose a file</button>
+            </div>
+
+            <div class="col-md-12 col-lg-6">
+                <div class="image">
+                    <div>Once you upload your image, <br>the result will appear here. </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5 card-detail-row">
+            <div class="col-12 mt-3 mb-1">
+                <h2 style="color: rgba(255,255,255,0.6);">VISUAL CRYPTOGRAPHY DECRYPT</h2>
+            </div>
+
+            <div class="col-md-12 col-lg-6">
+                <div class="image">
+                    <img style="display: none;"
+                        src="https://jes.edu.vn/wp-content/uploads/2017/10/h%C3%ACnh-%E1%BA%A3nh.jpg" alt="">
+
+                    <div>
+                        <i class="m-2 upload-icon fas fa-cloud-upload-alt"></i>
+                        <br>Please select a file <br> to begin the process!
+                    </div>
+                </div>
+                <input id="default-btn" type="file" hidden>
+                <button class="my-3 upload-btn btn">Choose a file</button>
+            </div>
+
+            <div class="col-md-12 col-lg-6">
+                <div class="image">
+                    <div>Once you upload your image, <br>the result will appear here. </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row category">About us</div>
+        <div class="row mb-5">
+            <div class="col-lg-3 col-md-12">
+                <div class="info-card card mt-1 mx-auto p-0">
+                    <img class="card-img-top mt-4"
+                        src="https://th.bing.com/th/id/R.4652b754f84e79fcb3ffd54807f4b7e8?rik=7JnPP7xKQgNRqQ&riu=http%3a%2f%2fwww.stevnserhvervsraad.dk%2fwp-content%2fuploads%2fblank-avatar.png&ehk=QG4p3fXwff%2fNe4d0VLt%2b3DfqDmYJABWPf8X41gGlLQI%3d&risl=&pid=ImgRaw&r=0">
+                    <div class="card-body">
+                        <h5 class="card-title mt-3 mb-2">QUOC HAO</h5>
+                        <p class="card-text mx-auto text-center text-muted">51900640</p>
+
+                        <div class="media-links">
+                            <a href="#" class="">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+
+                            <a href="#" class="">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+
+                            <a href="#" class="">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+
+                            <a href="#" class="">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="col-lg-3 col-md-12">
+                <div class="info-card card mt-1 mx-auto p-0">
+                    <img class="card-img-top mt-4"
+                        src="https://th.bing.com/th/id/R.4652b754f84e79fcb3ffd54807f4b7e8?rik=7JnPP7xKQgNRqQ&riu=http%3a%2f%2fwww.stevnserhvervsraad.dk%2fwp-content%2fuploads%2fblank-avatar.png&ehk=QG4p3fXwff%2fNe4d0VLt%2b3DfqDmYJABWPf8X41gGlLQI%3d&risl=&pid=ImgRaw&r=0">
+                    <div class="card-body">
+                        <h5 class="card-title mt-3 mb-2">Gia Bao</h5>
+                        <p class="card-text mx-auto text-center text-muted">51900640</p>
+
+                        <div class="media-links">
+                            <a href="#" class="">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+
+                            <a href="#" class="">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+
+                            <a href="#" class="">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+
+                            <a href="#" class="">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="col-lg-3 col-md-12">
+                <div class="info-card card mt-1 mx-auto p-0">
+                    <img class="card-img-top mt-4"
+                        src="https://th.bing.com/th/id/R.4652b754f84e79fcb3ffd54807f4b7e8?rik=7JnPP7xKQgNRqQ&riu=http%3a%2f%2fwww.stevnserhvervsraad.dk%2fwp-content%2fuploads%2fblank-avatar.png&ehk=QG4p3fXwff%2fNe4d0VLt%2b3DfqDmYJABWPf8X41gGlLQI%3d&risl=&pid=ImgRaw&r=0">
+                    <div class="card-body">
+                        <h5 class="card-title mt-3 mb-2">QUOC DAT</h5>
+                        <p class="card-text mx-auto text-center text-muted">51900640</p>
+
+                        <div class="media-links">
+                            <a href="#" class="">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+
+                            <a href="#" class="">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+
+                            <a href="#" class="">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+
+                            <a href="#" class="">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="col-lg-3 col-md-12">
+                <div class="info-card card mt-1 mx-auto p-0">
+                    <img class="card-img-top mt-4"
+                        src="https://th.bing.com/th/id/R.4652b754f84e79fcb3ffd54807f4b7e8?rik=7JnPP7xKQgNRqQ&riu=http%3a%2f%2fwww.stevnserhvervsraad.dk%2fwp-content%2fuploads%2fblank-avatar.png&ehk=QG4p3fXwff%2fNe4d0VLt%2b3DfqDmYJABWPf8X41gGlLQI%3d&risl=&pid=ImgRaw&r=0">
+                    <div class="card-body">
+                        <h5 class="card-title mt-3 mb-2">Trung Tin</h5>
+                        <p class="card-text mx-auto text-center text-muted">51900640</p>
+
+                        <div class="media-links">
+                            <a href="#" class="">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+
+                            <a href="#" class="">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+
+                            <a href="#" class="">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+
+                            <a href="#" class="">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="mt-5">
+        <div id="footer-wrapper">
+            <div class="row footer-row pb-2 mb-3 mr-0">
+                <div class="col-lg-8 col-md-12">
+                    <p id="company-info-title" class="pt-3">Visual Cryptography</p>
+                    <div class="row-contact-content mt-2 mr-2">
+                        <div>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo maxime nam expedita rem
+                            modi a sunt? Esse repellat doloribus impedit neque eveniet dolores nihil, aspernatur vitae!
+                            Similique facilis cum accusamus.
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Temporibus amet unde quidem
+                            assumenda consequatur repudiandae at adipisci beatae mollitia officiis vero suscipit, ipsam
+                        </div>
+
+                        <div class="media-links media-links-footer mt-2">
+                            <a href="#" class="">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+
+                            <a href="#" class="">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+
+                            <a href="#" class="">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+
+                            <a href="#" class="">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <p id="contact-info-title" class="pt-3 mb-1">Contact info</p>
+                    <div class="row row-contact-content mt-3">
+                        <div class="col-1 p-0">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="col-11 pl-0">
+                            <p>
+                                19 Nguyen Huu Tho Street, Tan Phong Ward, District 7, Ho Chi Minh City
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row row-contact-content">
+                        <div class="col-1 p-0">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="col-11 pl-0">
+                            <p>
+                                +8497377212<br>
+                                +8497377221
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row row-contact-content">
+                        <div class="col-1 p-0">
+                            <i class="far fa-envelope"></i>
+                        </div>
+                        <div class="col-11 pl-0">
+                            <p>
+                                visualcryptography@gmail.com
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div id="copyright" class="pb-3">
+                Visual Cryptography &copy; 2021 - All Rights Reserved
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <script>
+        var defaultBtn = document.querySelector("#default-btn");
+        var uploadBtn = document.querySelector(".upload-btn");
+        uploadBtn.onclick = function () {
+            defaultBtn.click();
+        };
+    </script>
+</body>
+
+</html>
