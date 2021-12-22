@@ -1,4 +1,4 @@
-# final-BMTT
+# Hướng dẫn sử dụng
 Sau khi khởi tạo git init remote xong xuôi thì anh em copy câu lệnh dưới để clone về <br>
 
 <h4> git clone -b origin master https://github.com/imbowbow42/final-BMTT.git </h4>
