@@ -41,37 +41,26 @@ def upload_image():
         flash('No image selected for uploading')
         return redirect(request.url)
     if file and allowed_file(file.filename):
-
-        #WRITE PYTHON CODE HERE
-        ###############################
-                  
-        
-
-        ###############################
-        file.filename = "./vc-webapp/static/uploads/_A.png"
-        filename = "./vc-webapp/static/uploads/_A.png"
-
-        # print(type(file.filename))
-        # print(type(filename))
         filename = secure_filename(file.filename)
              
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        # #print('upload_image filename: ' + filename)
-        flash('Image successfully uploaded and displayed below ')
-
-        
-        
-        print(file.filename)
-        return render_template('index.html', filename=filename)
+        decrypt(UPLOAD_FOLDER+ '/' +filename) # goi hàm decrypt 2 tấm ảnh
+        return render_template('index.html', filename= UPLOAD_FOLDER+ '/' +filename)
     else:
         flash('Allowed image types are - png, jpg, jpeg, gif')
         return redirect(request.url)
- 
-@app.route('/display/<filename>', methods = ['GET'])
-def display_image():
-    filename = "_A.png"
-    print('display_image filename: ' + filename)
-    return redirect(url_for('./static', filename='uploads/' + filename), code=301)
+    
+def decrypt(file_path):
+    infile1 = Image.open(file_path)
+    infile2 = Image.open('static/uploads/_B.png')
+
+    outfile = Image.new('1', infile1.size)
+
+    for x in range(infile1.size[0]):
+        for y in range(infile1.size[1]):
+            outfile.putpixel((x, y), max(infile1.getpixel((x, y)), infile2.getpixel((x, y))))
+    outfile.save('static/uploads/decrypted.png','PNG')
+
  
 @app.route('/register/')
 def register():
@@ -104,8 +93,8 @@ def generate_captcha():
 
     print("Image size: {}".format(img.size))
     # Prepare two empty slider images for drawing
-    width = img.size[0]*1
-    height = img.size[1]*1
+    width = img.size[0]*2
+    height = img.size[1]*2
     print("{} x {}".format(width, height))
     out_image_A = Image.new('1', (width, height))
     out_image_B = Image.new('1', (width, height))

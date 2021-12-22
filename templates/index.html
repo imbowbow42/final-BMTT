@@ -9,41 +9,217 @@
 </head>
 
 <body>
-    <p>
-    <h1>Python Flask Upload and display image</h1>
-    </p>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Poppins:200i,400&display=swap');
+
+        :root {
+            --color-white: #f3f3f3;
+            --color-darkblue: #4a4b27;
+            --color-darkblue-alpha: rgba(15, 15, 15, 0.8);
+            --color-green: #37af65;
+        }
+
+        a:link {
+            color: green;
+            background-color: transparent;
+            text-decoration: none;
+        }
+
+        a:visited {
+            color: pink;
+            background-color: transparent;
+            font-weight: bolder;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: red;
+            background-color: transparent;
+            text-decoration: underline;
+        }
+
+        a:active {
+            color: yellow;
+            background-color: transparent;
+            text-decoration: underline;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            color: var(--color-white);
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            background: var(--color-darkblue);
+            z-index: -1;
+            height: 100%;
+            width: 100%;
+            background-image: linear-gradient(115deg, rgba(57, 57, 61, 0.2), rgba(156, 162, 245, 0.3)), url('https://thumbs.dreamstime.com/b/modern-safety-digital-background-protection-system-cyber-security-information-network-protection-future-cyber-technology-157631670.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        #header {
+            color: var(--color-white);
+            text-align: center;
+        }
+
+        #description {
+            font-style: italic;
+        }
+
+        #survey-form {
+            background: var(--color-darkblue-alpha);
+            display: block;
+            margin: auto;
+            max-width: 650px;
+            border-radius: 10px;
+            padding: 2.5rem;
+            opacity: 1;
+        }
+
+        .form-group {
+            margin: 0 auto 1.25rem auto;
+            padding: 0.25rem;
+            width: 100%;
+        }
+
+        .form-control {
+            display: block;
+            border-radius: 5px;
+            width: 100%;
+            color: #495057;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            padding: 0.45rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        label {
+            display: flex;
+            align-items: center;
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+        }
+
+        input,
+        button,
+        select,
+        textarea {
+            margin: 0;
+            font-family: inherit;
+            font-size: inherit;
+            line-height: inherit;
+        }
+
+        #submit {
+            background-color: var(--color-green);
+            border-radius: 6px;
+            width: 100%;
+            height: 2rem;
+        }
+
+        .form-control:focus {
+            border-color: #80bdff;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+        #comment {
+            width: 100%;
+            min-height: 120px;
+            padding: 0.625rem;
+            resize: vertical;
+            border-radius: 5px;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+    </style>
+    <div id="header">
+        <h1 id="title">PREVENT PHISHING ATTACK USING VSS</h1>
+        <p id="description">Hãy tải lên share 1 của bạn lên để có thể tiến tới trang Login. Nếu bạn chưa tạo tài khoản
+            <a href="register"> click vào đây !</a>
+        </p>
+    </div>
     <div class="container">
         <div class="row">
-            <h2>Select a file to upload</h2>
-            <p>
-                {% with messages = get_flashed_messages() %}
-                {% if messages %}
-            <ul>
-                {% for message in messages %}
-                <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-            {% endwith %}
-            </p>
-            {% if filename %}
-            <div>
-                <img style="width: 400px;" src="{{ url_for('display_image', filename=filename) }}">
-            </div>
-            {% endif %}
-            <form method="post" action="/" enctype="multipart/form-data">
-                <dl>
-                    <p>
-                        <input type="file" name="file" class="form-control" autocomplete="off" required>
+            <form method="post" action="/" enctype="multipart/form-data" id="survey-form">
+                <div class="form-group">
+                    <label for="product-img">Tải ảnh lên</label>
+                    <div class="custom-file">
 
-                    </p>
-                </dl>
-                <p>
-                    <input type="submit" value="Submit" class="btn btn-info">
-                </p>
+                        <input name="file" type="file" class="custom-file-input" autocomplete="off" required
+                            id="upload-file">
+                        <label for="product-img" class="custom-file-label text-truncate">Tải lên ảnh</label>
+                    </div>
+
+                    <div class="form-group my-2">
+                        <input type="submit" value="Submit" class="btn btn-info">
+                    </div>
+
+                    {% if filename %}
+                    <div class="form-group">
+                        <p>Share 1</p>
+                        <img style="width: 400px;" src="{{ filename }}">
+
+
+                       
+                        <p>Decrypted Captcha</p>
+                        <div class="progress my-3" id="progress-bar">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="0"
+                                aria-valuemin="0" aria-valuemax="100" id="myBar"></div>
+                        </div>
+                        <img style="width: 400px; display: none;" id="decrypted-captcha" src="../static/uploads/decrypted.png">
+
+                    </div>
+
+
+                    {% endif %}
+
+
             </form>
         </div>
     </div>
+    <script>
+        var i = 0;
+        function move() {
+            if (i == 0) {
+                i = 1;
+                var elem = document.getElementById("myBar");
+                var progress = document.getElementById("progress-bar");
+                var captcha = document.getElementById("decrypted-captcha");
+                var width = 20;
+                var id = setInterval(frame, 15);
+                function frame() {
+                    if (width >= 100) {
+                        clearInterval(id);
+                        captcha.style.display = "block"
+                        progress.style.display = "none"
+        
+                        i = 0;
+                    } else {
+                        width++;
+                        elem.style.width = width + "%";
+                        elem.innerHTML = width + "%";
+                    }
+                }
+            }
+        }
+        move()
+        $('#upload-file').on('change', function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).next('.custom-file-label').html(fileName);
+        })
+    </script>
 </body>
 
 </html>
