@@ -51,14 +51,10 @@ def upload_image():
     if file.filename == '':
         flash('No image selected for uploading')
         return redirect(request.url)
-    # if file.filename != '_A.png':
-    #     flash('Ảnh này không phải là bản share')
-        return redirect(request.url)
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
-             
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        decrypt(UPLOAD_FOLDER+ '/' +filename) # goi hàm decrypt 2 tấm ảnh
+        decrypt(UPLOAD_FOLDER+ '/' +filename)
         return render_template('index.html', filename= UPLOAD_FOLDER+ '/' +filename)
     else:
         flash('Allowed image types are - png, jpg, jpeg, gif')
@@ -70,11 +66,16 @@ def decrypt(file_path):
     infile2 = Image.open('static/uploads/_B.png')
 
     outfile = Image.new('1', infile1.size)
+    if(infile1.size == (560, 180)):
+        for x in range(infile1.size[0]):
+            for y in range(infile1.size[1]):
+                outfile.putpixel((x, y), max(infile1.getpixel((x, y)), infile2.getpixel((x, y))))
+    
+        outfile.save('static/uploads/decrypted.png','PNG')     
+    else:
+        outfile.save('static/uploads/decrypted.png','PNG')
 
-    for x in range(infile1.size[0]):
-        for y in range(infile1.size[1]):
-            outfile.putpixel((x, y), max(infile1.getpixel((x, y)), infile2.getpixel((x, y))))
-    outfile.save('static/uploads/decrypted.png','PNG')
+    
 
  
 @app.route('/register/')
