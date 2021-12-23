@@ -51,6 +51,9 @@ def upload_image():
     if file.filename == '':
         flash('No image selected for uploading')
         return redirect(request.url)
+    # if file.filename != '_A.png':
+    #     flash('Ảnh này không phải là bản share')
+        return redirect(request.url)
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
              
@@ -62,6 +65,7 @@ def upload_image():
         return redirect(request.url)
     
 def decrypt(file_path):
+    
     infile1 = Image.open(file_path)
     infile2 = Image.open('static/uploads/_B.png')
 
