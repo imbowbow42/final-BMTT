@@ -161,6 +161,9 @@
             <form method="post" action="/" enctype="multipart/form-data" id="survey-form">
                 <p>Hãy cẩn thận đối chiếu ảnh gốc mà hệ thống đã gửi và ảnh phía dưới</p>
                 <div class="form-group">
+                    <label for="email"> Nhập email </label>
+                    <input type="text" class="form-control mb-3" id="email">
+
                     <label for="product-img">Tải ảnh lên</label>
                     <div class="custom-file">
 
@@ -173,6 +176,7 @@
                         <input type="submit" value="Submit" class="btn btn-info">
 
                     </div>
+                </div>
 
                     {% if filename %}
                     <div class="form-group">
